@@ -1,11 +1,11 @@
-from sqlalchemy import Column, Integer, LongText, Date, DateTime, Text, Boolean, ForeignKey
+from sqlalchemy import Column, Integer, Date, DateTime, Text, Boolean, ForeignKey
 from sqlalchemy.orm import relationship
 from database import Base
 
 class Documents(Base):
     __tablename__ = "documents"
     docid = Column(Integer, primary_key=True, nullable=False)
-    contents = Column(LongText, nullable=False)
+    contents = Column(Text, nullable=False)
     date = Column(Date)
     source = Column(Text)
 

@@ -1,8 +1,7 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
-from mainApp.models import model
-from models.database import SessionLocal
+from mainApp.models.database import SessionLocal
 
 def get_db():
     db = SessionLocal()

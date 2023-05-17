@@ -3,3 +3,6 @@ def example_route(data:str) -> str:
 
 def example_route_add_param(data: int) -> int:
     return data ** data
+
+def answer_route(data:str) -> str:
+    return data
