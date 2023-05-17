@@ -1,19 +1,24 @@
-from mainApp import db
+from sqlalchemy import Column, Integer, LongText, Date, DateTime, Text, Boolean, ForeignKey
+from sqlalchemy.orm import relationship
+from database import Base
 
-class Documents(db.Model):
-    docid = db.Column(db.Integer, primary_key=True, nullable=False)
-    contents = db.Column(db.Longtext, nullable=False)
-    date = db.Column(db.Date)
-    source = db.Column(db.Text)
+class Documents(Base):
+    __tablename__ = "documents"
+    docid = Column(Integer, primary_key=True, nullable=False)
+    contents = Column(LongText, nullable=False)
+    date = Column(Date)
+    source = Column(Text)
 
-class Chatroom(db.Model):
-    chatroom_id = db.Column(db.Integer, primary_key=True, nullable=False)
-    chat_start = db.Column(db.Datetime, nullable=False)
-    last_interaction = db.Column(db.Datetime, nullable=False)
+class Chatroom(Base):
+    chatroom_id = Column(Integer, primary_key=True, nullable=False)
+    chat_start = Column(DateTime, nullable=False)
+    last_interaction = Column(DateTime, nullable=False)
 
-class Individual_chats(db.Model):
-    chat_id = db.Column(db.Integer, primary_key=True, nullable=False)
-    chatroom_id = db.Column(db.Integer, foreign_key=True, nullable=False)
-    order = db.Column(db.Integer, nullable=False)
-    is_system = db.Column(db.Boolean, nullable=False)
-    docid = db.Column(db.Integer)
+class Individual_chats(Base):
+    chat_id = Column(Integer, primary_key=True, nullable=False)
+    chatroom_id = Column(Integer, ForeignKey("Chatroom.chatroom_id", ondelete="CASCADE"), nullable=False)
+    chatroom = relationship("Chatroom")
+    order = Column(Integer, nullable=False)
+    is_system = Column(Boolean, nullable=False)
+    docid = Column(Integer, ForeignKey("Documents.docid", ondelete="CASCADE"), nullable=False)
+    doc = relationship("Documents")
