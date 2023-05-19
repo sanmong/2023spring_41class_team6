@@ -1,7 +1,8 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
-from mainApp.models.database import SessionLocal
+from models.database import SessionLocal
+from routes import routes_list
 
 def get_db():
     db = SessionLocal()
@@ -10,15 +11,14 @@ def get_db():
     finally:
         db.close()
 
-def create_app():
-    app = Flask(__name__)
+app = Flask(__name__)
 
-    #routes list
-    from .routes import routes_list
-    routes_list(app)
+#routes list
+routes_list(app)
 
-    @app.route('/')
-    def hello_world():
-        return 'hello world!'
-    
-    return app
+@app.route('/')
+def hello_world():
+    return 'hello world!'
+
+if __name__=='__main__':
+    app.run()
